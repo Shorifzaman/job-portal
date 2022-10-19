@@ -20,7 +20,7 @@ mongoose
 //routes
 
 app.get('/', (req, res) => {
-  res.send('API Route is working');
+  res.send('job-portal API Route is working');
 });
 
 // port
