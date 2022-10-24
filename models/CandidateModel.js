@@ -1,50 +1,44 @@
 const mongoose = require("mongoose");
-const validator = require('validator');
+const { ObjectId } = mongoose.Schema.Types;
 
-const { ObjectId } = mongoose.Schema.Types
-
-
-const candidateSchema = mongoose.Schema({
-    candidateName: {
-        type: String,
-        trim: true,
-        lowercase: true,
-        minLength: [3, "Name mast be 3 characters"],
-        maxLength: [100, "Name is too larges"],
+const candidateSchema = mongoose.Schema(
+    {
+        name: {
+            type: String,
+            trim: true,
+            required: [true, "Candidate name is required."],
+            maxLength: 100,
+            unique: true,
+            lowercase: true,
+        },
+        user: {
+            id: {
+                type: ObjectId,
+                ref: "User",
+            },
+        },
+        appliedInfo: [
+            {
+                type: ObjectId,
+                ref: "AppliedInfo",
+            },
+        ],
+        jobs: [
+            {
+                type: ObjectId,
+                ref: "Job",
+            },
+        ],
+        isActive: {
+            type: Boolean,
+            default: true,
+        },
     },
-    email: {
-        type: String,
-        lowercase: true,
-        validate: [validator.isEmail, "Please provide a valid Email"],
-        unique: true,
-        require: [true, "Email address is Require"],
-    },
-    contactNumber: {
-        type: String,
-        validate: [validator.isMobilePhone, "Please provide a valid contact number"]
-    },
-    address: {
-        type: String,
-        require: true
-    },
-    highestEducation: {
-        type: String,
-        require: true
-    },
-    applyForm: {
-        name: String,
-        id: {
-            type: ObjectId,
-            ref: "Jobs",
-            require: true,
-        }
-    },
-    uploadResume: {
-        type: String,
+    {
+        timestamps: true,
     }
+);
 
-})
-
-const Candidate = mongoose.model('Candidate', candidateSchema);
+const Candidate = mongoose.model("Candidate", candidateSchema);
 
 module.exports = Candidate;

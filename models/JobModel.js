@@ -1,100 +1,72 @@
 const mongoose = require("mongoose");
-const validator = require('validator');
-const { ObjectId } = mongoose.Schema.Types
+const { ObjectId } = mongoose.Schema.Types;
 
-const jobsSchema = mongoose.Schema({
-    jobTitle: {
-        type: String,
-        trim: true,
-        require: true,
-    },
-    jobType: {
-        type: String,
-        require: true,
-        enum: {
-            values: ["Remote", "On-Site", "Hybrid"],
-            message: "{VALUE} is not valid name"
-        }
-    },
-    jobDescription: String,
-    jobLocation: {
-        type: String,
-        require: true,
-    },
-    company: {
-        type: String,
-        require: true,
-    },
-    skillsets: {
-        type: String,
-        require: true,
-    },
-    salary: {
-        type: Number
-    },
-    jobPostingDate: {
-        type: Date,
-        default: Date.now
-    },
-    lastApplicationDate: {
-        type: Date,
-        require: true,
-    },
-    category: {
-        type: String,
-        required: true,
-        // enum: {
-        //     values: [" Engineer/Architects", "Development", "Design/Creative", " IT & Telecommunication"],
-        //     message: "unit value can't be {VALUE}, must be_ IT & Telecommunication"
-        //   }
-      },
-    vacancy: {
-        type: String,
-        require: true,
-    },
-    totalApplied: {
-        type: Number,
-        required: true,
-        min: [0, "Number of applied must be integer"]
-      },
-      appliedInfo: [{
-        candidateId:  {
-          type: ObjectId,
-          ref: "Candidate"
+const jobSchema = mongoose.Schema({
+    manager: {
+        name: {
+          type: String,
+          trim: true,
+        },
+        email: {
+          type: String,
+          trim: true,
         },
         id: {
           type: ObjectId,
-          ref: "AppliedInfo"
+          ref:"User"
         }
-      }],
-      
-    acceptedCandidates: {
-        type: Number,
-        default: 0,
-        validate: [
-          {
-            validator: Number.isInteger,
-            msg: "acceptedCandidates should be an integer",
-          },
-          {
-            validator: function (value) {
-              return value >= 0;
-            },
-            msg: "acceptedCandidates should greater than equal to 0",
-          },
-        ],
       },
-    hiringManager: {
-        name: String,
-        id: {
-            type: ObjectId,
-            ref: "HiringManager",
-            require: true,
-        }
+  title: {
+    type: String,
+    trim: true,
+    required: [true, "Please provide a job title"],
+    maxLength: 100,
+    unique: true,
+    lowercase: true,
+  },
+  description: String,
+  location: String,
+  jobType:{
+    enum:['Internship', 'Full Time', 'Contractual'],
+    default:'Full Time',
+    type:String
+  },
+  salary: {
+    type: Number,
+    required: true,
+    min: [0, "Salary can't be negative"]
+  },
+  totalApplied: {
+    type: Number,
+    required: true,
+    min: [0, "Number of applied must be integer"]
+  },
+  appliedInfo: [{
+    candidateId:  {
+      type: ObjectId,
+      ref: "Candidate"
     },
+    id: {
+      type: ObjectId,
+      ref: "AppliedInfo"
+    }
+  }],
+  deadline:{
+    type:Date,
+    required:true
+  },
+  candidates: [{    
+      type: ObjectId,
+      ref: "Candidate"
+  }],
+  isActive: {
+    type: Boolean,
+    default: true
+  }
+}, {
+  timestamps: true
+});
 
-})
+const Job = mongoose.model("Job", jobSchema);
 
-const Jobs = mongoose.model('Jobs', jobsSchema);
-
-module.exports = Jobs;
+module.exports = Job;

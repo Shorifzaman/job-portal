@@ -1,27 +1,23 @@
-var jwt = require('jsonwebtoken');
-const { promisify } = require("util");
+const jwt = require("jsonwebtoken");
 
-
-module.exports = async (req, res, next) => {
-
+exports.verifyToken = async (req, res, next) => {
     try {
-        const token = req.headers?.authorization?.split(" ")?.[1];
-
-        if (!token) {
+        const { authorization } = req.headers;
+        if (!authorization) {
             return res.status(401).json({
-                status: "fail",
-                error: "You are not logged in"
-            })
+                status: false,
+                error: "You are not logged in!!!",
+            });
         }
+        const token = authorization.split(" ")[1];
 
-        const decoded = await promisify(jwt.verify)(token, process.env.TOKEN_SECRET)
-
+        const decoded = jwt.verify(token, "ph-acc-last");
         req.user = decoded;
         next();
     } catch (error) {
-        return res.status(403).json({
-            status: "fail",
-            error: "Invalid token"
-        })
+        res.status(401).json({
+            status: false,
+            error: "Invalid Token!",
+        });
     }
-}
+};

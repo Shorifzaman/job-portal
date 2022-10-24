@@ -1,67 +1,27 @@
 const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Schema.Types;
 
-let schema = new mongoose.Schema(
-  {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    education: [
-      {
-        institutionName: {
-          type: String,
-          required: true,
-        },
-        startYear: {
-          type: Number,
-          min: 1930,
-          max: new Date().getFullYear(),
-          required: true,
-          validate: Number.isInteger,
-        },
-        endYear: {
-          type: Number,
-          max: new Date().getFullYear(),
-          validate: [
-            { validator: Number.isInteger, msg: "Year should be an integer" },
-            {
-              validator: function (value) {
-                return this.startYear <= value;
-              },
-              msg: "End year should be greater than or equal to Start year",
-            },
-          ],
-        },
-      },
-    ],
-    skills: [String],
-    rating: {
-      type: Number,
-      max: 5.0,
-      default: -1.0,
-      validate: {
-        validator: function (v) {
-          return v >= -1.0 && v <= 5.0;
-        },
-        msg: "Invalid rating",
-      },
-    },
-    resume: {
-      type: String,
-    },
-    profile: {
-        id: {
-            type: ObjectId,
-            ref: "user",
-            require: true,
-        }
-    },
+const appliedJobSchema = mongoose.Schema({
+  candidate: {
+      type: ObjectId,
+      ref: "Candidate"
   },
-  { collation: { locale: "en" } }
-);
+  resumeId: {
+    type: String,
+  },
+  job: {
+      type: ObjectId,
+      ref: "Job"
+  },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
+}, {
+  timestamps: true
+});
 
-module.exports = mongoose.model("JobApplicantInfo", schema);
+
+const AppliedInfo = mongoose.model("AppliedInfo", appliedJobSchema);
+
+module.exports = AppliedInfo;
