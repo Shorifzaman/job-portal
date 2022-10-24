@@ -1,0 +1,4 @@
+node_modules
+.env
+fakeData.JSON
+render.yaml
