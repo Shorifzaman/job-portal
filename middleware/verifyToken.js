@@ -11,7 +11,7 @@ exports.verifyToken = async (req, res, next) => {
         }
         const token = authorization.split(" ")[1];
 
-        const decoded = jwt.verify(token, "ph-acc-last");
+        const decoded = jwt.verify(token, "job-portal", process.env.TOKEN_SECRET);
         req.user = decoded;
         next();
     } catch (error) {
