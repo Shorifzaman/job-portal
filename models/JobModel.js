@@ -26,10 +26,17 @@ const jobSchema = mongoose.Schema({
   },
   description: String,
   location: String,
+  company: {
+    type: String,
+    require: true,
+},
   jobType:{
-    enum:['Internship', 'Full Time', 'Contractual'],
-    default:'Full Time',
-    type:String
+    type: String,
+        require: true,
+        enum: {
+            values: ["Remote", "On-Site", "Hybrid"],
+            message: "{VALUE} is not valid name"
+        }
   },
   salary: {
     type: Number,
@@ -38,9 +45,13 @@ const jobSchema = mongoose.Schema({
   },
   totalApplied: {
     type: Number,
-    required: true,
+    // required: true,
     min: [0, "Number of applied must be integer"]
   },
+  vacancy: {
+    type: String,
+    require: true,
+},
   appliedInfo: [{
     candidateId:  {
       type: ObjectId,
@@ -51,6 +62,10 @@ const jobSchema = mongoose.Schema({
       ref: "AppliedInfo"
     }
   }],
+  jobPostingDate: {
+    type: Date,
+    default: Date.now
+},
   deadline:{
     type:Date,
     required:true

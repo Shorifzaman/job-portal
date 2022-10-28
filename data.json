@@ -1,0 +1,59 @@
+{
+    "success": true,
+    "data": [
+      {
+        "manager": {
+          "name": "Hiring Manager",
+          "email": "manager@gmail.com",
+          "id": "63538447d2fe370c0ab0af45"
+        },
+        "_id": "6353865d3252bd25234aaaae",
+        "title": "Backend developer",
+        "description": "We are hiring a Backend developer. 3 years experience in React.js",
+        "location": "Khulna",
+        "jobType": "Remote",
+        "salary": 30000,
+        "totalApplied": 11,
+        "deadline": "2020-10-30T00:00:00.000Z",
+        "isActive": true,
+        "createdAt": "2022-10-22T05:57:49.088Z",
+        "updatedAt": "2022-10-22T05:57:49.088Z",
+        "__v": 0
+      },
+      {
+        "manager": {
+          "name": "Hiring Manager",
+          "email": "manager@gmail.com",
+          "id": "63538447d2fe370c0ab0af45"
+        },
+        "_id": "635386b53252bd25234aaab0",
+        "title": "backend developer",
+        "description": "We are hiring a Backend developer. 5 years experience in Node.js with MySQL database.",
+        "location": "Dhaka",
+        "jobType": "Full Time",
+        "salary": 80000,
+        "vacancy": 10
+        
+      },
+      {
+        "manager": {
+          "name": "Hiring Manager",
+          "email": "manager@gmail.com",
+          "id": "63538447d2fe370c0ab0af45"
+        },
+        "_id": "635386f33252bd25234aaab2",
+        "title": "mern stack developer",
+        "description": "We are hiring a MERN Stack developer. 5 years experience in MERN Stack with NExt.js with MySQL database.",
+        "location": "Pabna",
+        "jobType": "Full Time",
+        "salary": 80000,
+        "totalApplied": 6,
+        "vacancy": 10,
+        "deadline": "2020-10-23T00:00:00.000Z",
+        "isActive": true,
+        "createdAt": "2022-10-22T06:00:19.597Z",
+        "updatedAt": "2022-10-22T06:21:36.824Z",
+        "__v": 0
+      }
+    ]
+  }

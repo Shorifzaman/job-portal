@@ -9,15 +9,15 @@ app.use(cors());
 
 
 //All routes
-const managerRoute = require("./routes/managerRoute");
 const jobRoute = require("./routes/jobRoute");
 const candidateRoute = require("./routes/candidateRoute");
+const managerRoute = require("./routes/managerRoute");
 const userRoute = require("./routes/userRoute");
 const adminRoute = require("./routes/adminRoute");
 // API 
 app.use("/jobs", jobRoute);
-app.use("/manager", managerRoute);
 app.use("/candidates", candidateRoute);
+app.use("/manager", managerRoute);
 app.use("/user", userRoute);
 app.use("/admin", adminRoute);
 

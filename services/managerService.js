@@ -7,11 +7,11 @@ exports.createManagerService = async (data) => {
 };
 
 exports.findOneManagerService = async (query) => {
-    const manager = await User.find({ role: "manager", ...query?.data });
+    const manager = await User.find({ role: "hiring manager", ...query?.data });
     return manager;
 };
 
 exports.findAllManagerService = async (query) => {
-    const allManager = await User.find({ role: "manager", ...query?.data });
+    const allManager = await User.find({ role: "hiring manager", ...query?.data });
     return allManager;
 };
