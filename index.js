@@ -6,7 +6,11 @@ const app = require("./app");
 //server
 const port = process.env.PORT || 5000;
 //DB CONNECTION
-const DATABASE_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.l2jwh.mongodb.net/admin`;
+const DATABASE_URL = "mongodb+srv://tour:tourlist@cluster0.l2jwh.mongodb.net/admin";
+
+
+
+// const DATABASE_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.l2jwh.mongodb.net/admin`;
 
 mongoose
   .connect(DATABASE_URL, {
