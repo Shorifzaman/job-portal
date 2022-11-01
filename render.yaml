@@ -3,7 +3,7 @@ services:
     name: blitzapp
     env: node
     plan: free
-    buildCommand: yarn --frozen-lockfile --prod=false && blitz build
+    buildCommand: start --frozen-lockfile --prod=false && blitz build
     startCommand: blitz start
     envVars:
       - key: NODE_ENV

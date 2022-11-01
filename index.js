@@ -1,7 +1,13 @@
 const mongoose = require('mongoose');
 const dotnev = require('dotenv').config();
+const express = require("express");
+const app = express();
+const cors = require("cors");
+// const app = require("./app");
 
-const app = require("./app");
+//middlewares
+app.use(express.json());
+app.use(cors());
 
 //server
 const port = process.env.PORT || 5000;
@@ -26,7 +32,23 @@ mongoose
 app.get('/', (req, res) => {
   res.send('job-portal API Route is working');
 });
+//All routes
+const jobRoute = require("./routes/jobRoute");
+const candidateRoute = require("./routes/candidateRoute");
+const managerRoute = require("./routes/managerRoute");
+const userRoute = require("./routes/userRoute");
+const adminRoute = require("./routes/adminRoute");
+// API 
+app.use("/jobs", jobRoute);
+app.use("/candidates", candidateRoute);
+app.use("/manager", managerRoute);
+app.use("/user", userRoute);
+app.use("/admin", adminRoute);
 
+// main route 
+app.get("/", (req, res) => {
+  res.send("Route is working! YaY!");
+});
 // port
 app.listen(port, () => {
   console.log('Express is running at port', port);
